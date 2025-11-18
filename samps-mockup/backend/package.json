@@ -1,0 +1,12 @@
+{
+  "name": "samps-backend-mock",
+  "version": "1.0.0",
+  "description": "Backend simulado para SAMPS usando json-server",
+  "main": "server.js",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001 --middlewares middleware.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}

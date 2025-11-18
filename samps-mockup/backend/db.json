@@ -1,0 +1,641 @@
+{
+  "usuarios_mock": [
+    {
+      "id": 1,
+      "nombre": "Admin Central",
+      "rol": "admin"
+    },
+    {
+      "id": 2,
+      "nombre": "Entidad Ejecutora 'Fundación Educativa'",
+      "rol": "entidad",
+      "entidad_id": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Entidad Ejecutora 'Centro Comunitario'",
+      "rol": "entidad",
+      "entidad_id": 2
+    },
+    {
+      "id": 4,
+      "nombre": "Monitor Juan Pérez",
+      "rol": "monitor",
+      "monitor_id": 1
+    },
+    {
+      "id": 5,
+      "nombre": "Monitor María González",
+      "rol": "monitor",
+      "monitor_id": 2
+    },
+    {
+      "id": 6,
+      "nombre": "Gestor Territorial Macarena",
+      "rol": "gestor"
+    }
+  ],
+  "entidades": [
+    {
+      "id": 1,
+      "nombre": "Fundación Educativa",
+      "rut": "96.789.123-4",
+      "cursos_asignados_rbd": [
+        998877,
+        998878
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Centro Comunitario",
+      "rut": "85.432.109-8",
+      "cursos_asignados_rbd": [
+        998879,
+        998880
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Corporación Desarrollo Social",
+      "rut": "77.555.888-2",
+      "cursos_asignados_rbd": [
+        998881,
+        998882
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Instituto Tecnológico",
+      "rut": "88.999.111-6",
+      "cursos_asignados_rbd": [
+        998883,
+        998884
+      ]
+    }
+  ],
+  "monitores": [
+    {
+      "id": 1,
+      "nombre": "Juan Pérez",
+      "rut": "12.345.678-9",
+      "entidad_id": 1
+    },
+    {
+      "id": 2,
+      "nombre": "María González",
+      "rut": "15.987.654-3",
+      "entidad_id": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Carlos Rodríguez",
+      "rut": "18.765.432-1",
+      "entidad_id": 2
+    },
+    {
+      "id": 4,
+      "nombre": "Ana Morales",
+      "rut": "22.111.333-5",
+      "entidad_id": 2
+    },
+    {
+      "id": 5,
+      "nombre": "Pedro Silva",
+      "rut": "14.222.555-8",
+      "entidad_id": 3
+    },
+    {
+      "id": 6,
+      "nombre": "Carmen López",
+      "rut": "17.888.444-2",
+      "entidad_id": 3
+    },
+    {
+      "id": 7,
+      "nombre": "Roberto Martínez",
+      "rut": "19.333.777-0",
+      "entidad_id": 4
+    },
+    {
+      "id": 8,
+      "nombre": "Sofía Ramírez",
+      "rut": "21.666.999-4",
+      "entidad_id": 4
+    }
+  ],
+  "cursos_mock_sige": [
+    {
+      "id": 1,
+      "rbd": 998877,
+      "nombre_establecimiento": "Liceo Bicentenario",
+      "curso": "8vo Básico A"
+    },
+    {
+      "id": 2,
+      "rbd": 998878,
+      "nombre_establecimiento": "Liceo Bicentenario",
+      "curso": "7mo Básico B"
+    },
+    {
+      "id": 3,
+      "rbd": 998879,
+      "nombre_establecimiento": "Escuela República",
+      "curso": "6to Básico A"
+    },
+    {
+      "id": 4,
+      "rbd": 998880,
+      "nombre_establecimiento": "Escuela República",
+      "curso": "5to Básico C"
+    },
+    {
+      "id": 5,
+      "rbd": 998881,
+      "nombre_establecimiento": "Colegio San Martín",
+      "curso": "1ro Medio A"
+    },
+    {
+      "id": 6,
+      "rbd": 998882,
+      "nombre_establecimiento": "Colegio San Martín",
+      "curso": "2do Medio B"
+    },
+    {
+      "id": 7,
+      "rbd": 998883,
+      "nombre_establecimiento": "Instituto Técnico",
+      "curso": "3ro Medio Técnico"
+    },
+    {
+      "id": 8,
+      "rbd": 998884,
+      "nombre_establecimiento": "Instituto Técnico",
+      "curso": "4to Medio Técnico"
+    }
+  ],
+  "alumnos_mock_sige": [
+    {
+      "id": 1,
+      "rut": "12.345.678-5",
+      "nombre": "Ana Contreras",
+      "email": "ana.contreras@mail.cl",
+      "curso_id": 1
+    },
+    {
+      "id": 2,
+      "rut": "11.111.111-1",
+      "nombre": "Bruno Díaz",
+      "email": "bruno.diaz@mail.cl",
+      "curso_id": 1
+    },
+    {
+      "id": 3,
+      "rut": "22.222.222-6",
+      "nombre": "Camila Torres",
+      "email": "camila.torres@mail.cl",
+      "curso_id": 1
+    },
+    {
+      "id": 4,
+      "rut": "33.333.333-0",
+      "nombre": "Diego Herrera",
+      "email": "diego.herrera@mail.cl",
+      "curso_id": 1
+    },
+    {
+      "id": 5,
+      "rut": "44.444.444-5",
+      "nombre": "Elena Vargas",
+      "email": "elena.vargas@mail.cl",
+      "curso_id": 2
+    },
+    {
+      "id": 6,
+      "rut": "55.555.555-k",
+      "nombre": "Felipe Castro",
+      "email": "felipe.castro@mail.cl",
+      "curso_id": 2
+    },
+    {
+      "id": 7,
+      "rut": "66.666.666-4",
+      "nombre": "Gabriela Soto",
+      "email": "gabriela.soto@mail.cl",
+      "curso_id": 3
+    },
+    {
+      "id": 8,
+      "rut": "77.777.777-9",
+      "nombre": "Hugo Mendoza",
+      "email": "hugo.mendoza@mail.cl",
+      "curso_id": 3
+    },
+    {
+      "id": 9,
+      "rut": "88.888.888-3",
+      "nombre": "Isadora Peña",
+      "email": "isadora.pena@mail.cl",
+      "curso_id": 4
+    },
+    {
+      "id": 10,
+      "rut": "99.999.999-8",
+      "nombre": "Joaquín Rojas",
+      "email": "joaquin.rojas@mail.cl",
+      "curso_id": 4
+    },
+    {
+      "id": 11,
+      "rut": "17.444.777-1",
+      "nombre": "Valentina Moreno",
+      "email": "valentina.moreno@mail.cl",
+      "curso_id": 5
+    },
+    {
+      "id": 12,
+      "rut": "18.555.888-5",
+      "nombre": "Matías Fuentes",
+      "email": "matias.fuentes@mail.cl",
+      "curso_id": 5
+    },
+    {
+      "id": 13,
+      "rut": "19.666.999-9",
+      "nombre": "Francisca Vega",
+      "email": "francisca.vega@mail.cl",
+      "curso_id": 6
+    },
+    {
+      "id": 14,
+      "rut": "20.777.000-3",
+      "nombre": "Sebastián Ortiz",
+      "email": "sebastian.ortiz@mail.cl",
+      "curso_id": 6
+    },
+    {
+      "id": 15,
+      "rut": "18.111.222-7",
+      "nombre": "Antonia Ruiz",
+      "email": "antonia.ruiz@mail.cl",
+      "curso_id": 7
+    },
+    {
+      "id": 16,
+      "rut": "19.333.444-0",
+      "nombre": "Nicolás Espinoza",
+      "email": "nicolas.espinoza@mail.cl",
+      "curso_id": 7
+    },
+    {
+      "id": 17,
+      "rut": "20.555.666-4",
+      "nombre": "Javiera Campos",
+      "email": "javiera.campos@mail.cl",
+      "curso_id": 8
+    },
+    {
+      "id": 18,
+      "rut": "17.888.999-8",
+      "nombre": "Tomás Guerrero",
+      "email": "tomas.guerrero@mail.cl",
+      "curso_id": 8
+    }
+  ],
+  "talleres": [
+    {
+      "id": 1,
+      "nombre": "Taller de Ajedrez",
+      "disciplina": "Ciencia",
+      "entidad_id": 1,
+      "monitor_id": 1,
+      "curso_id": 1,
+      "calendario": "martes 15:00-16:30",
+      "horarios": [
+        {
+          "dia": "martes",
+          "inicio": "15:00",
+          "fin": "16:30"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Robótica Educativa",
+      "disciplina": "Tecnología",
+      "entidad_id": 1,
+      "monitor_id": 2,
+      "curso_id": 2,
+      "calendario": "miercoles 14:30-16:00, viernes 14:30-16:00",
+      "horarios": [
+        {
+          "dia": "miercoles",
+          "inicio": "14:30",
+          "fin": "16:00"
+        },
+        {
+          "dia": "viernes",
+          "inicio": "14:30",
+          "fin": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Arte y Pintura",
+      "disciplina": "Arte",
+      "entidad_id": 2,
+      "monitor_id": 3,
+      "curso_id": 3,
+      "calendario": "jueves 16:00-17:30",
+      "horarios": [
+        {
+          "dia": "jueves",
+          "inicio": "16:00",
+          "fin": "17:30"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Fútbol Infantil",
+      "disciplina": "Deporte",
+      "entidad_id": 2,
+      "monitor_id": 4,
+      "curso_id": 4,
+      "calendario": "lunes 15:30-17:00, miercoles 15:30-17:00",
+      "horarios": [
+        {
+          "dia": "lunes",
+          "inicio": "15:30",
+          "fin": "17:00"
+        },
+        {
+          "dia": "miercoles",
+          "inicio": "15:30",
+          "fin": "17:00"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "Programación Básica",
+      "disciplina": "Tecnología",
+      "entidad_id": 3,
+      "monitor_id": 5,
+      "curso_id": 5,
+      "calendario": "martes 16:00-17:30",
+      "horarios": [
+        {
+          "dia": "martes",
+          "inicio": "16:00",
+          "fin": "17:30"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "Teatro y Expresión",
+      "disciplina": "Arte",
+      "entidad_id": 3,
+      "monitor_id": 6,
+      "curso_id": 6,
+      "calendario": "jueves 15:00-16:30",
+      "horarios": [
+        {
+          "dia": "jueves",
+          "inicio": "15:00",
+          "fin": "16:30"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "nombre": "Mecánica Automotriz",
+      "disciplina": "Técnico",
+      "entidad_id": 4,
+      "monitor_id": 7,
+      "curso_id": 7,
+      "calendario": "lunes 14:00-16:00, miercoles 14:00-16:00",
+      "horarios": [
+        {
+          "dia": "lunes",
+          "inicio": "14:00",
+          "fin": "16:00"
+        },
+        {
+          "dia": "miercoles",
+          "inicio": "14:00",
+          "fin": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "nombre": "Electrónica Digital",
+      "disciplina": "Técnico",
+      "entidad_id": 4,
+      "monitor_id": 8,
+      "curso_id": 8,
+      "calendario": "martes 13:30-15:30, viernes 13:30-15:30",
+      "horarios": [
+        {
+          "dia": "martes",
+          "inicio": "13:30",
+          "fin": "15:30"
+        },
+        {
+          "dia": "viernes",
+          "inicio": "13:30",
+          "fin": "15:30"
+        }
+      ]
+    }
+  ],
+  "sesiones_checkin": [
+    {
+      "id": "sesion_20241101_001",
+      "taller_id": 1,
+      "codigo_pantalla": "1234",
+      "timestamp_inicio": "2024-11-01T15:00:00.000Z"
+    },
+    {
+      "id": "sesion_20241102_002",
+      "taller_id": 2,
+      "codigo_pantalla": "5678",
+      "timestamp_inicio": "2024-11-02T14:30:00.000Z"
+    },
+    {
+      "id": "sesion_20241103_003",
+      "taller_id": 3,
+      "codigo_pantalla": "9012",
+      "timestamp_inicio": "2024-11-03T16:00:00.000Z"
+    },
+    {
+      "id": "sesion_1763100561105",
+      "taller_id": 1,
+      "codigo_pantalla": "6402",
+      "timestamp_inicio": "2025-11-14T06:09:21.105Z"
+    },
+    {
+      "id": "sesion_1763134142711",
+      "taller_id": 1,
+      "codigo_pantalla": "7471",
+      "timestamp_inicio": "2025-11-14T15:29:02.711Z"
+    }
+  ],
+  "asistencias": [
+    {
+      "id": 1,
+      "sesion_id": "sesion_20241101_001",
+      "alumno_id": 1,
+      "estado": "Presente",
+      "timestamp": "2024-11-01T15:02:00.000Z"
+    },
+    {
+      "id": 2,
+      "sesion_id": "sesion_20241101_001",
+      "alumno_id": 2,
+      "estado": "Con Atraso",
+      "timestamp": "2024-11-01T15:07:00.000Z"
+    },
+    {
+      "id": 3,
+      "sesion_id": "sesion_20241101_001",
+      "alumno_id": 3,
+      "estado": "Presente",
+      "timestamp": "2024-11-01T15:01:00.000Z"
+    },
+    {
+      "id": 4,
+      "sesion_id": "sesion_20241102_002",
+      "alumno_id": 5,
+      "estado": "Presente",
+      "timestamp": "2024-11-02T14:32:00.000Z"
+    },
+    {
+      "id": 5,
+      "sesion_id": "sesion_20241102_002",
+      "alumno_id": 6,
+      "estado": "Presente",
+      "timestamp": "2024-11-02T14:35:00.000Z"
+    },
+    {
+      "id": 6,
+      "sesion_id": "sesion_20241103_003",
+      "alumno_id": 7,
+      "estado": "Con Atraso",
+      "timestamp": "2024-11-03T16:08:00.000Z"
+    },
+    {
+      "id": 7,
+      "sesion_id": "sesion_20241103_003",
+      "alumno_id": 8,
+      "estado": "Presente",
+      "timestamp": "2024-11-03T16:03:00.000Z"
+    },
+    {
+      "sesion_id": "sesion_1763098120917",
+      "alumno_id": 2,
+      "estado": "Presente",
+      "timestamp": "2025-11-14T05:29:13.991Z",
+      "id": 8
+    },
+    {
+      "sesion_id": "sesion_1763098120917",
+      "alumno_id": 1,
+      "estado": "Presente",
+      "timestamp": "2025-11-14T05:35:23.766Z",
+      "id": 9,
+      "comentario": "Error en check-in",
+      "modificado_por": "Monitor",
+      "timestamp_modificacion": "2025-11-14T05:36:14.224Z"
+    },
+    {
+      "sesion_id": "sesion_1763098120917",
+      "alumno_id": 3,
+      "estado": "Presente",
+      "manual": true,
+      "comentario": "",
+      "timestamp": "2025-11-14T05:35:55.039Z",
+      "id": 10
+    },
+    {
+      "sesion_id": "sesion_1763134142711",
+      "alumno_id": 2,
+      "estado": "Presente",
+      "timestamp": "2025-11-14T15:32:34.243Z",
+      "id": 11
+    },
+    {
+      "sesion_id": "sesion_1763134142711",
+      "alumno_id": 1,
+      "estado": "Presente",
+      "manual": true,
+      "comentario": "",
+      "timestamp": "2025-11-14T15:33:14.322Z",
+      "id": 12
+    }
+  ],
+  "visitas_gestor": [
+    {
+      "id": 1,
+      "taller_id": 1,
+      "taller_nombre": "Taller de Ajedrez",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Supervisión Rutinaria",
+      "fecha": "2024-10-15",
+      "observaciones": "Excelente participación de los estudiantes. Monitor muy preparado y metodología adecuada.",
+      "timestamp": "2024-10-15T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "taller_id": 2,
+      "taller_nombre": "Robótica Educativa",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Auditoría de Calidad",
+      "fecha": "2024-10-20",
+      "observaciones": "Recursos tecnológicos en buen estado. Se recomienda ampliar el tiempo de práctica individual.",
+      "timestamp": "2024-10-20T14:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "taller_id": 3,
+      "taller_nombre": "Arte y Pintura",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Evaluación de Resultados",
+      "fecha": "2024-10-25",
+      "observaciones": "Trabajos de alta calidad. Estudiantes muestran progreso significativo en técnicas artísticas.",
+      "timestamp": "2024-10-25T16:45:00.000Z"
+    },
+    {
+      "id": 4,
+      "taller_id": 4,
+      "taller_nombre": "Fútbol Infantil",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Seguimiento de Incidencias",
+      "fecha": "2024-10-30",
+      "observaciones": "Se solucionó el problema de equipamiento. Implementar protocolo de seguridad más estricto.",
+      "timestamp": "2024-10-30T15:20:00.000Z"
+    },
+    {
+      "id": 5,
+      "taller_id": 5,
+      "taller_nombre": "Programación Básica",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Supervisión Rutinaria",
+      "fecha": "2024-11-05",
+      "observaciones": "Estudiantes muestran gran interés en programación. Sugerir equipos más modernos.",
+      "timestamp": "2024-11-05T11:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "taller_id": 6,
+      "taller_nombre": "Teatro y Expresión",
+      "gestor": "Macarena (Gestor Territorial)",
+      "tipo": "Evaluación de Resultados",
+      "fecha": "2024-11-08",
+      "observaciones": "Presentación final muy exitosa. Estudiantes desarrollaron confianza y habilidades comunicativas.",
+      "timestamp": "2024-11-08T16:30:00.000Z"
+    }
+  ]
+}
