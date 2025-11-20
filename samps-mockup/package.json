@@ -1,0 +1,11 @@
+{
+  "name": "samps-mineduc",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd frontend && npm run dev"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
