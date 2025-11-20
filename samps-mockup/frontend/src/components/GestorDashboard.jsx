@@ -28,10 +28,11 @@ const GestorDashboard = () => {
   }, [gestorSeleccionado]);
 
   const fetchGestores = () => handleAsync(async () => {
-    const data = await getUsuarios({ rol: 'gestor' });
-    setGestores(data);
-    if (data.length > 0) {
-      setGestorSeleccionado(data[0].id);
+    const response = await getUsuarios();
+    const gestoresFiltrados = response.data.filter(u => u.rol === 'gestor');
+    setGestores(gestoresFiltrados);
+    if (gestoresFiltrados.length > 0) {
+      setGestorSeleccionado(gestoresFiltrados[0].id);
     }
   });
 
@@ -39,13 +40,13 @@ const GestorDashboard = () => {
     if (!gestorSeleccionado) return;
     
     handleAsync(async () => {
-      const [talleresData, visitasData] = await Promise.all([
+      const [talleresRes, visitasRes] = await Promise.all([
         getTalleres(),
         getVisitasGestor()
       ]);
       
-      setTalleres(talleresData);
-      setVisitas(visitasData);
+      setTalleres(talleresRes.data);
+      setVisitas(visitasRes.data);
     });
   };
 

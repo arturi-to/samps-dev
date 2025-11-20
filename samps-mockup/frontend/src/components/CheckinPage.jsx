@@ -23,19 +23,19 @@ const CheckinPage = () => {
   const fetchSesion = () => handleAsync(async () => {
     console.log('Buscando sesión:', sesionId);
     
-    const sesionData = await getSesionCheckin(sesionId);
-    console.log('Sesión encontrada:', sesionData);
-    setSesion(sesionData);
+    const sesionRes = await getSesionCheckin(sesionId);
+    console.log('Sesión encontrada:', sesionRes.data);
+    setSesion(sesionRes.data);
     
     // Obtener información del taller
-    if (sesionData.taller_id) {
-      const taller = await getTaller(sesionData.taller_id);
-      const entidad = await getEntidad(taller.entidad_id);
+    if (sesionRes.data.taller_id) {
+      const tallerRes = await getTaller(sesionRes.data.taller_id);
+      const entidadRes = await getEntidad(tallerRes.data.entidad_id);
       
       setTallerInfo({
-        nombre: taller.nombre,
-        disciplina: taller.disciplina,
-        entidad: entidad.nombre
+        nombre: tallerRes.data.nombre,
+        disciplina: tallerRes.data.disciplina,
+        entidad: entidadRes.data.nombre
       });
     }
     
@@ -61,14 +61,15 @@ const CheckinPage = () => {
     }
 
     handleAsync(async () => {
-      const alumnoData = await getAlumnos({ rut: formData.rut });
+      const alumnosRes = await getAlumnos();
+      const alumnosFiltrados = alumnosRes.data.filter(a => a.rut === formData.rut);
       
-      if (alumnoData.length === 0) {
+      if (alumnosFiltrados.length === 0) {
         setMessage('RUT no encontrado en el sistema');
         return;
       }
 
-      const alumno = alumnoData[0];
+      const alumno = alumnosFiltrados[0];
       setAlumno(alumno);
 
       // Generar OTP localmente

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RutInput from './RutInput';
 import DataTable from './DataTable';
 import { validateRut } from '../utils/rutValidator';
@@ -6,6 +7,7 @@ import { getEntidades, createEntidad, updateEntidad, deleteEntidad } from '../se
 import { useErrorHandler } from '../hooks/useErrorHandler';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [entidades, setEntidades] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ nombre: '', rut: '' });
@@ -17,8 +19,8 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchEntidades = () => handleAsync(async () => {
-    const data = await getEntidades();
-    setEntidades(data);
+    const response = await getEntidades();
+    setEntidades(response.data);
   });
 
   const handleSubmit = (e) => {
@@ -165,7 +167,7 @@ const AdminDashboard = () => {
       <div className="card">
         <h3>📚 Gestión de Alumnos</h3>
         <p>Para gestionar alumnos, utiliza el menú de navegación superior.</p>
-        <button className="btn" onClick={() => window.location.href = '/admin/alumnos'}>
+        <button className="btn" onClick={() => navigate('/admin/alumnos')}>
           Ir a Gestión de Alumnos
         </button>
       </div>

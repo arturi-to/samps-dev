@@ -9,12 +9,14 @@ import CheckinPage from './components/CheckinPage';
 import TestPage from './components/TestPage';
 import AlumnosManager from './components/AlumnosManager';
 import Navbar from './components/Navbar';
+import NotificationSystem from './components/NotificationSystem';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Navbar />
+        <NotificationSystem />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/admin/home" element={<AdminDashboard />} />
@@ -24,6 +26,7 @@ function App() {
           <Route path="/admin/alumnos" element={<AlumnosManager />} />
           <Route path="/test/:sesionId" element={<TestPage />} />
           <Route path="/check/:sesionId" element={<CheckinPage />} />
+          <Route path="*" element={<Login />} />
         </Routes>
       </div>
     </Router>

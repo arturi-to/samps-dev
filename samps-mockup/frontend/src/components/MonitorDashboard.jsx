@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import QRCode from 'react-qr-code';
 import DataTable from './DataTable';
 import { getMonitores, getTalleres, getAlumnos, getSesionesCheckin, getAsistencias, createSesionCheckin, createAsistencia, updateAsistencia, deleteSesionCheckin } from '../services/api';
@@ -32,18 +32,26 @@ const MonitorDashboard = () => {
   useEffect(() => {
     if (sesionActiva) {
       const interval = setInterval(() => {
-        fetchAsistencias();
         updateTimer();
-      }, 1000); // Cambiar a 1 segundo
-      return () => clearInterval(interval);
+      }, 1000);
+      
+      // Fetch asistencias menos frecuentemente
+      const fetchInterval = setInterval(() => {
+        fetchAsistencias();
+      }, 5000); // Cada 5 segundos
+      
+      return () => {
+        clearInterval(interval);
+        clearInterval(fetchInterval);
+      };
     }
   }, [sesionActiva]);
 
   const fetchMonitores = () => handleAsync(async () => {
-    const data = await getMonitores();
-    setMonitores(data);
-    if (data.length > 0) {
-      setMonitorSeleccionado(data[0].id);
+    const response = await getMonitores();
+    setMonitores(response.data);
+    if (response.data.length > 0) {
+      setMonitorSeleccionado(response.data[0].id);
     }
   });
 
@@ -51,13 +59,16 @@ const MonitorDashboard = () => {
     if (!monitorSeleccionado) return;
     
     handleAsync(async () => {
-      const tallerData = await getTalleres({ monitor_id: monitorSeleccionado });
-      if (tallerData.length > 0) {
-        const taller = tallerData[0];
+      const talleresRes = await getTalleres();
+      const talleresFiltrados = talleresRes.data.filter(t => t.monitor_id === monitorSeleccionado);
+      
+      if (talleresFiltrados.length > 0) {
+        const taller = talleresFiltrados[0];
         setTaller(taller);
         
-        const alumnosData = await getAlumnos({ curso_id: taller.curso_id });
-        setAlumnos(alumnosData);
+        const alumnosRes = await getAlumnos();
+        const alumnosFiltrados = alumnosRes.data.filter(a => a.curso_id === taller.curso_id);
+        setAlumnos(alumnosFiltrados);
       } else {
         setTaller(null);
         setAlumnos([]);
@@ -82,14 +93,15 @@ const MonitorDashboard = () => {
     fetchSesionesActivas();
   });
 
-  const fetchAsistencias = () => {
+  const fetchAsistencias = useCallback(() => {
     if (!sesionActiva) return;
     
     handleAsync(async () => {
-      const data = await getAsistencias({ sesion_id: sesionActiva.id });
-      setAsistencias(data);
-    });
-  };
+      const response = await getAsistencias();
+      const asistenciasFiltradas = response.data.filter(a => a.sesion_id === sesionActiva.id);
+      setAsistencias(asistenciasFiltradas);
+    }, { showLoading: false }); // No mostrar loading para updates frecuentes
+  }, [sesionActiva, handleAsync]);
 
   const updateTimer = () => {
     setTimeLeft(prev => {
@@ -139,9 +151,9 @@ const MonitorDashboard = () => {
   };
 
   const fetchSesionesActivas = () => handleAsync(async () => {
-    const data = await getSesionesCheckin();
+    const response = await getSesionesCheckin();
     const ahora = new Date();
-    const sesionesValidas = data.filter(sesion => {
+    const sesionesValidas = response.data.filter(sesion => {
       const inicio = new Date(sesion.timestamp_inicio);
       const tiempoTranscurrido = (ahora - inicio) / (1000 * 60);
       return tiempoTranscurrido < 15; // Sesiones activas por 15 minutos
@@ -166,10 +178,18 @@ const MonitorDashboard = () => {
     }
   });
 
-  const getEstadoAlumno = (alumnoId) => {
+  const getEstadoAlumno = useCallback((alumnoId) => {
     const asistencia = asistencias.find(a => a.alumno_id === alumnoId);
     return asistencia ? asistencia.estado : 'Ausente';
-  };
+  }, [asistencias]);
+  
+  const estadisticas = useMemo(() => {
+    const presentes = asistencias.filter(a => a.estado === 'Presente').length;
+    const conAtraso = asistencias.filter(a => a.estado === 'Con Atraso').length;
+    const ausentes = alumnos.length - asistencias.length;
+    
+    return { presentes, conAtraso, ausentes };
+  }, [asistencias, alumnos.length]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -379,7 +399,7 @@ const MonitorDashboard = () => {
           {sesionActiva && (
             <div style={{ marginTop: '25px', padding: '20px', background: '#f8f9fa', borderRadius: '12px' }}>
               <p style={{ margin: '0', color: '#6c757d', fontSize: '14px' }}>
-                📊 <strong>Estadísticas:</strong> {asistencias.filter(a => a.estado === 'Presente').length} presentes, {asistencias.filter(a => a.estado === 'Con Atraso').length} con atraso, {alumnos.length - asistencias.length} ausentes
+                📊 <strong>Estadísticas:</strong> {estadisticas.presentes} presentes, {estadisticas.conAtraso} con atraso, {estadisticas.ausentes} ausentes
               </p>
             </div>
           )}

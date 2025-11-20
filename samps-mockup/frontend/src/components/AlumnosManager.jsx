@@ -126,7 +126,7 @@ const AlumnosManager = () => {
         onEdit={(alumno) => setEditingAlumno(alumno.id)}
         onDelete={(alumno) => {
           if(confirm(`¿Eliminar alumno "${alumno.nombre}"?`)) {
-            axios.delete(`http://localhost:3001/alumnos_mock_sige/${alumno.id}`).then(() => fetchData());
+            deleteAlumno(alumno.id).then(() => fetchData());
           }
         }}
       />
@@ -137,7 +137,7 @@ const AlumnosManager = () => {
           <form onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            axios.patch(`http://localhost:3001/alumnos_mock_sige/${editingAlumno}`, {
+            updateAlumno(editingAlumno, {
               nombre: formData.get('nombre'),
               email: formData.get('email'),
               curso_id: parseInt(formData.get('curso_id'))

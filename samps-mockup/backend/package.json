@@ -4,9 +4,11 @@
   "description": "Backend simulado para SAMPS usando json-server",
   "main": "server.js",
   "scripts": {
-    "start": "json-server --watch db.json --port 3001 --middlewares middleware.js"
+    "start": "node -r dotenv/config node_modules/.bin/json-server --watch db.json --port 3001 --middlewares middleware.js",
+    "dev": "npm start"
   },
   "dependencies": {
+    "dotenv": "^16.6.1",
     "json-server": "^0.17.4"
   }
 }

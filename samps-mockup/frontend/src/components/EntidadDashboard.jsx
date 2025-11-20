@@ -37,10 +37,10 @@ const EntidadDashboard = () => {
   }, [entidadSeleccionada]);
 
   const fetchEntidades = () => handleAsync(async () => {
-    const data = await getEntidades();
-    setEntidades(data);
-    if (data.length > 0) {
-      setEntidadSeleccionada(data[0].id);
+    const response = await getEntidades();
+    setEntidades(response.data);
+    if (response.data.length > 0) {
+      setEntidadSeleccionada(response.data[0].id);
     }
   });
 
@@ -48,15 +48,19 @@ const EntidadDashboard = () => {
     if (!entidadSeleccionada) return;
     
     handleAsync(async () => {
-      const [monitoresData, talleresData, cursosData] = await Promise.all([
-        getMonitores({ entidad_id: entidadSeleccionada }),
-        getTalleres({ entidad_id: entidadSeleccionada }),
+      const [monitoresRes, talleresRes, cursosRes] = await Promise.all([
+        getMonitores(),
+        getTalleres(),
         getCursos()
       ]);
       
-      setMonitores(monitoresData);
-      setTalleres(talleresData);
-      setCursos(cursosData);
+      // Filtrar por entidad_id localmente
+      const monitoresFiltrados = monitoresRes.data.filter(m => m.entidad_id === entidadSeleccionada);
+      const talleresFiltrados = talleresRes.data.filter(t => t.entidad_id === entidadSeleccionada);
+      
+      setMonitores(monitoresFiltrados);
+      setTalleres(talleresFiltrados);
+      setCursos(cursosRes.data);
     });
   };
 

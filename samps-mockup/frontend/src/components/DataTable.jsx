@@ -1,27 +1,44 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
-const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showActions = true }) => {
+const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showActions = true, pageSize = 10 }) => {
   const [search, setSearch] = useState('');
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredData = data.filter(item => {
-    if (!search) return true;
-    return searchFields.some(field => 
-      item[field]?.toString().toLowerCase().includes(search.toLowerCase())
-    );
-  });
+  const processedData = useMemo(() => {
+    // Filtrar
+    const filtered = data.filter(item => {
+      if (!search) return true;
+      return searchFields.some(field => 
+        item[field]?.toString().toLowerCase().includes(search.toLowerCase())
+      );
+    });
 
-  const sortedData = [...filteredData].sort((a, b) => {
-    if (!sortField) return 0;
-    const aVal = a[sortField]?.toString().toLowerCase() || '';
-    const bVal = b[sortField]?.toString().toLowerCase() || '';
-    
-    if (sortDirection === 'asc') {
-      return aVal.localeCompare(bVal);
-    }
-    return bVal.localeCompare(aVal);
-  });
+    // Ordenar
+    const sorted = [...filtered].sort((a, b) => {
+      if (!sortField) return 0;
+      const aVal = a[sortField]?.toString().toLowerCase() || '';
+      const bVal = b[sortField]?.toString().toLowerCase() || '';
+      
+      if (sortDirection === 'asc') {
+        return aVal.localeCompare(bVal);
+      }
+      return bVal.localeCompare(aVal);
+    });
+
+    // Paginar
+    const totalPages = Math.ceil(sorted.length / pageSize);
+    const startIndex = (currentPage - 1) * pageSize;
+    const paginated = sorted.slice(startIndex, startIndex + pageSize);
+
+    return {
+      data: paginated,
+      totalItems: sorted.length,
+      totalPages,
+      currentPage
+    };
+  }, [data, search, sortField, sortDirection, currentPage, pageSize, searchFields]);
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -49,7 +66,8 @@ const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showAct
           }}
         />
         <span style={{ color: '#6c757d', fontSize: '14px' }}>
-          {sortedData.length} registro{sortedData.length !== 1 ? 's' : ''}
+          {processedData.totalItems} registro{processedData.totalItems !== 1 ? 's' : ''}
+          {processedData.totalPages > 1 && ` (Página ${processedData.currentPage} de ${processedData.totalPages})`}
         </span>
       </div>
 
@@ -92,7 +110,7 @@ const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showAct
             </tr>
           </thead>
           <tbody>
-            {sortedData.map((item, index) => (
+            {processedData.data.map((item, index) => (
               <tr 
                 key={item.id}
                 style={{ 
@@ -166,7 +184,7 @@ const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showAct
         </table>
       </div>
 
-      {sortedData.length === 0 && (
+      {processedData.data.length === 0 && (
         <div style={{ 
           textAlign: 'center', 
           padding: '40px', 
@@ -176,6 +194,38 @@ const DataTable = ({ data, columns, onEdit, onDelete, searchFields = [], showAct
           marginTop: '10px'
         }}>
           No se encontraron registros
+        </div>
+      )}
+
+      {processedData.totalPages > 1 && (
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          gap: '10px',
+          marginTop: '20px'
+        }}>
+          <button 
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+            style={{ padding: '8px 12px', fontSize: '12px' }}
+          >
+            ← Anterior
+          </button>
+          
+          <span style={{ color: '#6c757d', fontSize: '14px' }}>
+            Página {currentPage} de {processedData.totalPages}
+          </span>
+          
+          <button 
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.min(processedData.totalPages, prev + 1))}
+            disabled={currentPage === processedData.totalPages}
+            style={{ padding: '8px 12px', fontSize: '12px' }}
+          >
+            Siguiente →
+          </button>
         </div>
       )}
     </div>
